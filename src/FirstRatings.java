@@ -90,7 +90,7 @@ public class FirstRatings {
 
         for (CSVRecord record : parse) {
             if (!map.containsKey(record.get("rater_id"))) {
-                Rater rated = new Rater(record.get("rater_id"));
+                Rater rated = new PlainRater(record.get("rater_id"));
                 rated.addRating(record.get("movie_id"), Double.parseDouble(record.get("rating")));
                 map.put(record.get("rater_id"), rated);
 
@@ -160,7 +160,10 @@ public class FirstRatings {
     public static void main(String[] args) {
         FirstRatings fr = new FirstRatings();
         //fr.testLoadMovies();
+        double start = System.nanoTime();
         fr.testLoadRaters("193", "1798709");
+        double end = System.nanoTime();
+        System.out.println("Time taken = " + (end - start) / 1000000000);
 
     }
 }
